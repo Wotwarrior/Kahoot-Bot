@@ -21,11 +21,11 @@ print("Starting chrome...")
 chrome_options = Options()
 chrome_options.add_argument("--headless")
 driver = webdriver.Chrome(chrome_options=chrome_options)
-#If join feild is blank, then default is 50
+#If join field is blank, then default is 50:
 if join=='':
     join=50
 def namec():
-    #Code for clarifying name
+    #Code for clarifying name:
     global join, bot_num, nameb
     num=random.randint(1,999)*3
     if join=='1':
@@ -45,24 +45,24 @@ def bot():
         driver.execute_script("window.open('');")
         driver.switch_to.window(driver.window_handles[tab])
     print("Navigating to Kahoot...")
-    #Navigate to kahoot.com
+    #Navigate to kahoot.com:
     driver.get("https://kahoot.it/")
-    #Wait untill element is available
+    #Wait until element is available:
     wait = WebDriverWait(driver, 10)
     element = wait.until(EC.element_to_be_clickable((By.ID, 'inputSession')))
-    #Finding input box
+    #Finding input box:
     inputb = driver.find_element_by_id('inputSession')
     print("Joining game...")
-    #Inputting pin
+    #Inputting pin:
     inputb.send_keys(pin)
     inputb.submit()
-    #Entering name
+    #Entering name:
     element = wait.until(EC.element_to_be_clickable((By.ID, 'username')))
     gname = driver.find_element_by_id('username')
     namec()
     gname.send_keys(nameb)
     gname.submit()
-    #Checking login
+    #Checking login:
     print("Checking if login was succesfull...")
     try:
        content = driver.find_element_by_class_name('ng-binding') 
@@ -72,6 +72,6 @@ def bot():
     print("Success!")
     print("Bot [" + bot_num + "] is now in the game ;)")
     tab = tab + 1
-#Code for running a set amoun of times
+#Code for running a set amount of times:
 for x in range(int(join)):
     bot()
